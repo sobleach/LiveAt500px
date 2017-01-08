@@ -1,0 +1,15 @@
+package simple.com.thum.liveat500px.manager.http;
+
+import retrofit2.Call;
+import retrofit2.http.POST;
+import simple.com.thum.liveat500px.dao.PhotoItemCollectionDao;
+
+/**
+ * Created by Thum on 8/1/2560.
+ */
+
+public interface ApiService {
+
+    @POST("list")
+    Call<PhotoItemCollectionDao> loadPhotoList();
+}
