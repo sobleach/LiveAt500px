@@ -39,7 +39,7 @@ public class PhotoListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (position % 2 == 0) {
+        if (getItemViewType(position) == 0) {
             PhotoListItem item;
             if (convertView != null) {
                 item = (PhotoListItem) convertView;
