@@ -3,7 +3,6 @@ package simple.com.thum.liveat500px.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import simple.com.thum.liveat500px.view.PhotoListItem;
 
@@ -28,30 +27,13 @@ public class PhotoListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getViewTypeCount() {
-        return 2;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position % 2 == 0 ? 0 : 1;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (getItemViewType(position) == 0) {
-            PhotoListItem item;
-            if (convertView != null) {
-                item = (PhotoListItem) convertView;
-            } else {
-                item = new PhotoListItem(parent.getContext());
-            }
-            return item;
+        PhotoListItem item;
+        if (convertView != null) {
+            item = (PhotoListItem) convertView;
         } else {
-            TextView item;
-            item = new TextView(parent.getContext());
-            item.setText("Position: " + position);
-            return item;
+            item = new PhotoListItem(parent.getContext());
         }
+        return item;
     }
 }
