@@ -124,8 +124,8 @@ public class PhotoListItem extends BaseCustomViewGroup {
     public void setImageUrl(String url) {
         Glide.with(getContext())
                 .load(url)
-                .placeholder() // image when waiting
-                .error() // imagae when error occur
+                .placeholder()
+                .error()
                 .into(ivImg);
     }
 }
