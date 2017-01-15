@@ -1,18 +1,20 @@
 package simple.com.thum.liveat500px.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import simple.com.thum.liveat500px.R;
+import simple.com.thum.liveat500px.dao.PhotoItemDao;
 import simple.com.thum.liveat500px.fragment.MainFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainFragment.FlagmentListener{
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -68,5 +70,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPhotoItemClick(PhotoItemDao dao) {
+        Intent intent = new Intent(MainActivity.this,MoreInfoActivity.class);
+        intent.putExtra("dao",dao);
+        startActivity(intent);
     }
 }

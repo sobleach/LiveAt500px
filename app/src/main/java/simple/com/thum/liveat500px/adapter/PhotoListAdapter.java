@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import simple.com.thum.liveat500px.R;
 import simple.com.thum.liveat500px.dao.PhotoItemCollectionDao;
 import simple.com.thum.liveat500px.dao.PhotoItemDao;
+import simple.com.thum.liveat500px.datatype.MutableInteger;
 import simple.com.thum.liveat500px.view.PhotoListItem;
 
 /**
@@ -18,8 +19,11 @@ import simple.com.thum.liveat500px.view.PhotoListItem;
 public class PhotoListAdapter extends BaseAdapter {
 
     PhotoItemCollectionDao dao;
+    MutableInteger lastPosition;
 
-    int lastPosition = -1;
+    public PhotoListAdapter(MutableInteger lastPosition) {
+        this.lastPosition = lastPosition;
+    }
 
     public void setDao(PhotoItemCollectionDao dao) {
         this.dao = dao;
@@ -60,13 +64,17 @@ public class PhotoListAdapter extends BaseAdapter {
         item.setDescriptionText(dao.getUsername() + "\n" + dao.getCamera());
         item.setImageUrl(dao.getImageUrl());
 
-        if (position > lastPosition) {
+        if (position > lastPosition.getValue()) {
             Animation anim = AnimationUtils.loadAnimation(parent.getContext(),
                     R.anim.up_from_bottom);
             item.startAnimation(anim);
-            lastPosition = position;
+            lastPosition.setValue(position);
         }
 
         return item;
+    }
+
+    public void increaseLastPosition(int additionalSize) {
+        lastPosition.setValue(lastPosition.getValue() + additionalSize);
     }
 }
