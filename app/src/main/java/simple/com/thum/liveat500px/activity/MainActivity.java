@@ -14,7 +14,7 @@ import simple.com.thum.liveat500px.R;
 import simple.com.thum.liveat500px.dao.PhotoItemDao;
 import simple.com.thum.liveat500px.fragment.MainFragment;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.FlagmentListener{
+public class MainActivity extends AppCompatActivity implements MainFragment.FlagmentListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Flag
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Flag
 
     @Override
     public void onPhotoItemClick(PhotoItemDao dao) {
-        Intent intent = new Intent(MainActivity.this,MoreInfoActivity.class);
-        intent.putExtra("dao",dao);
+        Intent intent = new Intent(MainActivity.this, MoreInfoActivity.class);
+        intent.putExtra("dao", dao);
         startActivity(intent);
     }
 }

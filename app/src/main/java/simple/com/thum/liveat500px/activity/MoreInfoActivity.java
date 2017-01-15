@@ -2,6 +2,7 @@ package simple.com.thum.liveat500px.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import simple.com.thum.liveat500px.R;
@@ -17,22 +18,28 @@ public class MoreInfoActivity extends AppCompatActivity {
         innitInstances();
         PhotoItemDao dao = getIntent().getParcelableExtra("dao");
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.moreInfoContent, MoreInfoFlagment.newInstance(dao))
                     .commit();
         }
     }
 
-    private  void innitInstances(){
+    private void innitInstances() {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_more_info, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }
