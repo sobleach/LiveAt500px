@@ -1,11 +1,17 @@
 package simple.com.thum.liveat500px.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,6 +28,7 @@ import simple.com.thum.liveat500px.dao.PhotoItemDao;
 public class MoreInfoFlagment extends Fragment {
     SlidingTabLayout slidingTabLayout;
     PhotoItemDao dao;
+
     public MoreInfoFlagment() {
         super();
     }
@@ -30,7 +37,7 @@ public class MoreInfoFlagment extends Fragment {
     public static MoreInfoFlagment newInstance(PhotoItemDao dao) {
         MoreInfoFlagment fragment = new MoreInfoFlagment();
         Bundle args = new Bundle();
-        args.putParcelable("dao",dao);
+        args.putParcelable("dao", dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,6 +62,7 @@ public class MoreInfoFlagment extends Fragment {
 
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
+        setHasOptionsMenu(true);
     }
 
     @SuppressWarnings("UnusedParameters")
@@ -71,7 +79,8 @@ public class MoreInfoFlagment extends Fragment {
                         return PhotoInfoFlagment.newInstance(dao);
                     case 2:
                         return PhotoTagsFlagment.newInstance(dao);
-                    default: return  null;
+                    default:
+                        return null;
                 }
             }
 
@@ -89,11 +98,12 @@ public class MoreInfoFlagment extends Fragment {
                         return "Info";
                     case 2:
                         return "Tags";
-                    default: return  "";
+                    default:
+                        return "";
                 }
             }
         });
-        slidingTabLayout  = (SlidingTabLayout) rootView.findViewById(R.id.slidingTabLayout);
+        slidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.slidingTabLayout);
         slidingTabLayout.setViewPager(viewPager);
     }
 
@@ -124,4 +134,21 @@ public class MoreInfoFlagment extends Fragment {
         // Restore Instance State here
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_more_info, menu);
+        MenuItem menuItem = (MenuItem) menu.findItem(R.id.action_share);
+        ShareActionProvider shareActionProvider = (ShareActionProvider)
+                MenuItemCompat.getActionProvider(menuItem);
+        shareActionProvider.setShareIntent(getShareIntent());
+    }
+
+    private Intent getShareIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+        intent.putExtra(Intent.EXTRA_TEXT, "Extra Text");
+        return intent;
+    }
 }
